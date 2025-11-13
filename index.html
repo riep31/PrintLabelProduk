@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <title>Label Produk</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .label-box {
+      width: 378px;
+      height: 378px;
+      background: #fff;
+      padding: 8px;
+      position: relative;
+      border: 1px solid #000;
+      box-sizing: border-box;
+    }
+
+    .inner-frame {
+      width: 100%;
+      height: 100%;
+      background: #fff8f8;
+      border: 1px solid #000;
+      position: relative;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    /* === TITLE + LOGO === */
+    .title-top-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .title-top-wrapper img {
+      height: 20px;
+    }
+
+    .title-top {
+      font-size: 11px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .top-line,
+    .line {
+      width: 100%;
+      height: 2px;
+      background: #000;
+      margin: 5px 0;
+    }
+
+    /* Kotak kiri (QR) */
+    .left-image-box {
+      width: 150px;
+      height: 150px;
+      background: #fff;
+      border: 2px solid #000;
+      float: left;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #qrCanvas {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain;
+    }
+
+    /* Kanan */
+    .right-section {
+      margin-left: 170px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .price {
+      font-size: 24px;
+      margin-top: 5px;
+    }
+
+    .status {
+      font-size: 18px;
+      margin: 5px 0;
+    }
+
+    .row {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+
+    .label {
+      margin-right: 10px;
+    }
+
+    .value {
+      font-size: 18px;
+    }
+
+    /* DETAIL BOX */
+    .detail-box {
+      position: absolute;
+      bottom: 5px;
+      left: 12px;
+      right: 12px;
+      padding: 5px;
+      background: #fff;
+      border: 1px solid #000;
+      font-size: 10px;
+      box-sizing: border-box;
+
+      /* WRAP TEXT AGAR TIDAK KELUAR */
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+
+    .detail-box .row {
+      font-size: 12px;
+      margin: 4px 0;
+    }
+
+    .footer {
+      margin-top: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    @media print {
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .label-box {
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIBRARY QR CODE -->
+<script src='https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js'></script>
+
+<div class='label-box'>
+
+  <div class='inner-frame'>
+
+    <!-- TITLE + LOGO -->
+    <div class='title-top-wrapper'>
+      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYyanHkNjy-MEGWx-yRWA8XiFF9HbWiLoGFY9HRkEpuBXKYGjxU_TMW2dK4ONcqKA4tgusqp=CAU' alt='Logo'>
+      <div class='title-top'>PT. DAGSAP ENDURA EATORE</div>
+    </div>
+
+    <div class='top-line'></div>
+
+    <!-- QR CODE -->
+    <div class='left-image-box'>
+      <canvas id='qrCanvas'></canvas>
+    </div>
+
+    <!-- BAGIAN KANAN -->
+    <div class='right-section'>
+      <div class='price' id='priceValue'>HNR10.000</div>
+
+      <div class='line'></div>
+      <div class='status' id='itemCondition'>[Item Condition]</div>
+      <div class='line'></div>
+
+      <div class='row'>
+        <span class='label'>EXP :</span>
+        <span class='value' id='expDate'>[Tanggal Expired]</span>
+      </div>
+      <div class='line'></div>
+
+      <div class='row'>
+        <span class='label'>QTY :</span>
+        <span class='value' id='qtyValue'>[Sub Total]</span>
+      </div>
+      <div class='line'></div>
+    </div>
+
+    <!-- DETAIL BOX -->
+    <div class='detail-box'>
+
+      <div class='row'><b>Nama Produk:</b> <span id='productName'>[Nama Produk]</span></div>
+      <div class='line'></div>
+
+      <div class='row'>
+        <b>Detail :</b>
+        <span id='detailValue'>[Barcode]</span>
+      </div>
+      <div class='line'></div>
+
+      <div class='footer'>
+        <span id='dateValue'>[Tanggal]</span> &nbsp;&nbsp;
+        <span id='shiftValue'>[Shift]</span> &nbsp;&nbsp;
+        <span id='picValue'>[PIC]</span>
+      </div>
+      <div class='line'></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCRIPT UNTUK MEMBACA URL PARAMETERS DAN GENERATE QR -->
+<script>
+  // Fungsi untuk membaca URL parameters
+  function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  }
+
+  // Ambil semua parameter dari URL (kosong jika tidak ada)
+  const itemCondition = getUrlParameter('condition') || '';
+  const expDate = getUrlParameter('exp') || '';
+  const subTotal = getUrlParameter('qty') || '';
+  const productName = getUrlParameter('product') || '';
+  const barcode = getUrlParameter('barcode') || '';
+  const date = getUrlParameter('date') || '';
+  const shift = getUrlParameter('shift') || '';
+  const pic = getUrlParameter('pic') || '';
+  const price = getUrlParameter('price') || '';
+
+  // Update semua elemen dengan nilai dari parameter
+  document.getElementById('itemCondition').innerText = itemCondition;
+  document.getElementById('expDate').innerText = expDate;
+  document.getElementById('qtyValue').innerText = subTotal;
+  document.getElementById('productName').innerText = productName;
+  document.getElementById('detailValue').innerText = barcode;
+  document.getElementById('dateValue').innerText = date;
+  document.getElementById('shiftValue').innerText = shift;
+  document.getElementById('picValue').innerText = pic;
+  document.getElementById('priceValue').innerText = price;
+
+  // Generate QR Code dengan nilai barcode
+  QRCode.toCanvas(
+    document.getElementById('qrCanvas'),
+    barcode,
+    {
+      width: 150,
+      margin: 0
+    },
+    function(err){
+      if(err) console.error(err);
+    }
+  );
+</script>
+
+</body>
+</html>
