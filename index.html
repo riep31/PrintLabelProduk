@@ -45,7 +45,7 @@
     }
 
     .title-top-wrapper img {
-      height: 35px;
+      height: 40px;
       width: auto;
       object-fit: contain;
     }
@@ -62,6 +62,8 @@
       height: 2px;
       background: #000;
       margin: 0 0 5px 0;
+      -webkit-print-color-adjust: exact; /* Untuk browser berbasis Webkit */
+      print-color-adjust: exact; /* Standar CSS */
     }
 
     /* Kotak kiri (QR) */
@@ -75,6 +77,8 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     #qrCanvas {
@@ -124,6 +128,8 @@
       border: 1px solid #000;
       font-size: 10px;
       box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
 
       /* WRAP TEXT AGAR TIDAK KELUAR */
       overflow-wrap: break-word;
@@ -166,8 +172,31 @@
         padding: 0;
       }
       .label-box {
-        border: none;
+        border: 1px solid #000 !important;
         page-break-after: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .inner-frame {
+        border: 1px solid #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .top-line,
+      .line {
+        background: #000 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .left-image-box {
+        border: 2px solid #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .detail-box {
+        border: 1px solid #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
       .print-button {
         display: none;
@@ -182,7 +211,7 @@
 <body>
 
 <!-- LIBRARY QR CODE -->
-<script src='https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js'></script>
+<script src='https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@master/qrcode.min.js'></script>
 
 <div class='label-box'>
 
@@ -249,6 +278,7 @@
 <button class='print-button' onclick='window.print()'>🖨️ Print Label</button>
 
 <!-- SCRIPT UNTUK MEMBACA URL PARAMETERS DAN GENERATE QR -->
+<script src='https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js'></script>
 <script>
   // Fungsi untuk membaca URL parameters
   function getUrlParameter(name) {
@@ -283,7 +313,7 @@
   // Generate QR Code dengan nilai barcode
   QRCode.toCanvas(
     document.getElementById('qrCanvas'),
-    barcode,
+    barcode || 'SAMPLE-BARCODE',
     {
       width: 150,
       margin: 0
