@@ -9,6 +9,9 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .label-box {
@@ -19,6 +22,7 @@
       position: relative;
       border: 1px solid #000;
       box-sizing: border-box;
+      margin-bottom: 0;
     }
 
     .inner-frame {
@@ -36,16 +40,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin-bottom: 5px;
+      gap: 12px;
+      margin-bottom: 2px;
     }
 
     .title-top-wrapper img {
-      height: 20px;
+      height: 35px;
+      width: auto;
+      object-fit: contain;
     }
 
     .title-top {
-      font-size: 11px;
+      font-size: 14px;
       font-weight: bold;
       text-align: center;
     }
@@ -55,7 +61,7 @@
       width: 100%;
       height: 2px;
       background: #000;
-      margin: 5px 0;
+      margin: 0 0 5px 0;
     }
 
     /* Kotak kiri (QR) */
@@ -136,6 +142,24 @@
       font-weight: bold;
     }
 
+    .print-button {
+      margin-top: 15px;
+      padding: 12px 30px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 378px;
+      box-sizing: border-box;
+    }
+
+    .print-button:hover {
+      background: #45a049;
+    }
+
     @media print {
       body {
         margin: 0;
@@ -143,6 +167,14 @@
       }
       .label-box {
         border: none;
+        page-break-after: avoid;
+      }
+      .print-button {
+        display: none;
+      }
+      @page {
+        size: 100mm 100mm;
+        margin: 0;
       }
     }
   </style>
@@ -158,7 +190,7 @@
 
     <!-- TITLE + LOGO -->
     <div class='title-top-wrapper'>
-      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYyanHkNjy-MEGWx-yRWA8XiFF9HbWiLoGFY9HRkEpuBXKYGjxU_TMW2dK4ONcqKA4tgusqp=CAU' alt='Logo'>
+      <img src='https://cdn.jsdelivr.net/gh/riep31/assets@main/logos/logodagsap1280x960.png' alt='Logo' onerror="this.style.display='none'">
       <div class='title-top'>PT. DAGSAP ENDURA EATORE</div>
     </div>
 
@@ -212,6 +244,9 @@
 
   </div>
 </div>
+
+<!-- TOMBOL PRINT -->
+<button class='print-button' onclick='window.print()'>🖨️ Print Label</button>
 
 <!-- SCRIPT UNTUK MEMBACA URL PARAMETERS DAN GENERATE QR -->
 <script>
