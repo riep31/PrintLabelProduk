@@ -2,26 +2,32 @@
 <html lang='en'>
 <head>
   <meta charset='UTF-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Label Produk</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      background: #f0f0f0;
     }
 
     .label-box {
-      width: 378px;
-      height: 378px;
+      width: 95vw;
+      max-width: 500px;
+      aspect-ratio: 1;
       background: #fff;
-      padding: 8px;
+      padding: 2%;
       position: relative;
-      border: 1px solid #000;
-      box-sizing: border-box;
+      border: 2px solid #000;
       margin-bottom: 0;
     }
 
@@ -29,10 +35,11 @@
       width: 100%;
       height: 100%;
       background: #fff8f8;
-      border: 1px solid #000;
+      border: 2px solid #000;
       position: relative;
-      padding: 12px;
-      box-sizing: border-box;
+      padding: 3%;
+      display: flex;
+      flex-direction: column;
     }
 
     /* === TITLE + LOGO === */
@@ -40,18 +47,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 2px;
+      gap: 2%;
+      margin-bottom: 1%;
+      flex-shrink: 0;
     }
 
     .title-top-wrapper img {
-      height: 40px;
+      height: 8vw;
+      max-height: 40px;
       width: auto;
       object-fit: contain;
     }
 
     .title-top {
-      font-size: 14px;
+      font-size: clamp(12px, 3vw, 16px);
       font-weight: bold;
       text-align: center;
     }
@@ -61,22 +70,30 @@
       width: 100%;
       height: 2px;
       background: #000;
-      margin: 0 0 5px 0;
-      -webkit-print-color-adjust: exact; /* Untuk browser berbasis Webkit */
-      print-color-adjust: exact; /* Standar CSS */
+      margin: 1% 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      flex-shrink: 0;
+    }
+
+    .content-wrapper {
+      display: flex;
+      gap: 3%;
+      margin-bottom: 3%;
+      flex-shrink: 0;
     }
 
     /* Kotak kiri (QR) */
     .left-image-box {
-      width: 150px;
-      height: 150px;
+      width: 40%;
+      aspect-ratio: 1;
       background: #fff;
       border: 2px solid #000;
-      float: left;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      flex-shrink: 0;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
@@ -89,89 +106,114 @@
 
     /* Kanan */
     .right-section {
-      margin-left: 170px;
+      flex: 1;
       font-weight: bold;
       color: #000;
+      display: flex;
+      flex-direction: column;
     }
 
     .price {
-      font-size: 24px;
-      margin-top: 5px;
+      font-size: clamp(18px, 5vw, 28px);
+      margin: 2% 0;
     }
 
     .status {
-      font-size: 18px;
-      margin: 5px 0;
+      font-size: clamp(14px, 4vw, 20px);
+      margin: 2% 0;
     }
 
     .row {
-      font-size: 16px;
-      margin: 5px 0;
+      font-size: clamp(12px, 3.5vw, 18px);
+      margin: 2% 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .label {
-      margin-right: 10px;
+      flex-shrink: 0;
     }
 
     .value {
-      font-size: 18px;
+      font-size: clamp(14px, 4vw, 20px);
     }
 
     /* DETAIL BOX */
     .detail-box {
-      position: absolute;
-      bottom: 5px;
-      left: 12px;
-      right: 12px;
-      padding: 5px;
+      margin-top: auto;
+      padding: 3%;
       background: #fff;
-      border: 1px solid #000;
-      font-size: 10px;
-      box-sizing: border-box;
+      border: 2px solid #000;
+      font-size: clamp(10px, 2.5vw, 13px);
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
-
-      /* WRAP TEXT AGAR TIDAK KELUAR */
       overflow-wrap: break-word;
       word-wrap: break-word;
       white-space: normal;
+      flex-shrink: 0;
     }
 
     .detail-box .row {
-      font-size: 12px;
-      margin: 4px 0;
+      font-size: clamp(11px, 3vw, 14px);
+      margin: 2% 0;
     }
 
     .footer {
-      margin-top: 5px;
-      font-size: 12px;
+      margin-top: 2%;
+      font-size: clamp(10px, 2.8vw, 13px);
       font-weight: bold;
     }
 
     .print-button {
       margin-top: 15px;
-      padding: 12px 30px;
+      padding: 15px 30px;
       background: #4CAF50;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: clamp(14px, 4vw, 18px);
       font-weight: bold;
       cursor: pointer;
-      width: 378px;
-      box-sizing: border-box;
+      width: 95vw;
+      max-width: 500px;
+      touch-action: manipulation;
     }
 
-    .print-button:hover {
+    .print-button:active {
       background: #45a049;
+      transform: scale(0.98);
+    }
+
+    /* Untuk tablet landscape */
+    @media (min-width: 768px) and (orientation: landscape) {
+      .label-box {
+        max-width: 450px;
+      }
+      .print-button {
+        max-width: 450px;
+      }
+    }
+
+    /* Untuk tablet portrait */
+    @media (min-width: 768px) and (orientation: portrait) {
+      .label-box {
+        max-width: 550px;
+      }
+      .print-button {
+        max-width: 550px;
+      }
     }
 
     @media print {
       body {
         margin: 0;
         padding: 0;
+        background: white;
       }
       .label-box {
+        width: 378px;
+        height: 378px;
         border: 1px solid #000 !important;
         page-break-after: avoid;
         -webkit-print-color-adjust: exact;
@@ -179,24 +221,57 @@
       }
       .inner-frame {
         border: 1px solid #000 !important;
+        padding: 12px;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+      }
+      .title-top-wrapper img {
+        height: 40px;
+      }
+      .title-top {
+        font-size: 14px;
+      }
+      .left-image-box {
+        width: 150px;
+        height: 150px;
+        border: 2px solid #000 !important;
+      }
+      .content-wrapper {
+        display: block;
+      }
+      .right-section {
+        margin-left: 170px;
+      }
+      .price {
+        font-size: 24px;
+      }
+      .status {
+        font-size: 18px;
+      }
+      .row {
+        font-size: 16px;
+      }
+      .value {
+        font-size: 18px;
+      }
+      .detail-box {
+        position: absolute;
+        bottom: 5px;
+        left: 12px;
+        right: 12px;
+        font-size: 10px;
+      }
+      .detail-box .row {
+        font-size: 12px;
+      }
+      .footer {
+        font-size: 12px;
       }
       .top-line,
       .line {
         background: #000 !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
-      }
-      .left-image-box {
-        border: 2px solid #000 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-      .detail-box {
-        border: 1px solid #000 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
       }
       .print-button {
         display: none;
@@ -211,7 +286,7 @@
 <body>
 
 <!-- LIBRARY QR CODE -->
-<script src='https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@master/qrcode.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js'></script>
 
 <div class='label-box'>
 
@@ -225,30 +300,32 @@
 
     <div class='top-line'></div>
 
-    <!-- QR CODE -->
-    <div class='left-image-box'>
-      <canvas id='qrCanvas'></canvas>
-    </div>
-
-    <!-- BAGIAN KANAN -->
-    <div class='right-section'>
-      <div class='price' id='priceValue'>HNR10.000</div>
-
-      <div class='line'></div>
-      <div class='status' id='itemCondition'>[Item Condition]</div>
-      <div class='line'></div>
-
-      <div class='row'>
-        <span class='label'>EXP :</span>
-        <span class='value' id='expDate'>[Tanggal Expired]</span>
+    <div class='content-wrapper'>
+      <!-- QR CODE -->
+      <div class='left-image-box'>
+        <canvas id='qrCanvas'></canvas>
       </div>
-      <div class='line'></div>
 
-      <div class='row'>
-        <span class='label'>QTY :</span>
-        <span class='value' id='qtyValue'>[Sub Total]</span>
+      <!-- BAGIAN KANAN -->
+      <div class='right-section'>
+        <div class='price' id='priceValue'>HNR10.000</div>
+
+        <div class='line'></div>
+        <div class='status' id='itemCondition'>[Item Condition]</div>
+        <div class='line'></div>
+
+        <div class='row'>
+          <span class='label'>EXP:</span>
+          <span class='value' id='expDate'>[Tanggal Expired]</span>
+        </div>
+        <div class='line'></div>
+
+        <div class='row'>
+          <span class='label'>QTY:</span>
+          <span class='value' id='qtyValue'>[Sub Total]</span>
+        </div>
+        <div class='line'></div>
       </div>
-      <div class='line'></div>
     </div>
 
     <!-- DETAIL BOX -->
@@ -258,7 +335,7 @@
       <div class='line'></div>
 
       <div class='row'>
-        <b>Detail :</b>
+        <b>Detail:</b>
         <span id='detailValue'>[Barcode]</span>
       </div>
       <div class='line'></div>
@@ -278,7 +355,6 @@
 <button class='print-button' onclick='window.print()'>🖨️ Print Label</button>
 
 <!-- SCRIPT UNTUK MEMBACA URL PARAMETERS DAN GENERATE QR -->
-<script src='https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js'></script>
 <script>
   // Fungsi untuk membaca URL parameters
   function getUrlParameter(name) {
@@ -315,7 +391,7 @@
     document.getElementById('qrCanvas'),
     barcode || 'SAMPLE-BARCODE',
     {
-      width: 150,
+      width: 300,
       margin: 0
     },
     function(err){
