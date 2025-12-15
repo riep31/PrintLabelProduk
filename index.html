@@ -25,7 +25,7 @@
       max-width: 500px;
       aspect-ratio: 1;
       background: #fff;
-      padding: 2%;
+      padding: 1%;
       position: relative;
       border: 2px solid #000;
       margin-bottom: 0;
@@ -34,10 +34,10 @@
     .inner-frame {
       width: 100%;
       height: 100%;
-      background: #fff8f8;
+      background: #fff;
       border: 2px solid #000;
       position: relative;
-      padding: 3%;
+      padding: 1%;
       display: flex;
       flex-direction: column;
     }
@@ -48,7 +48,7 @@
       align-items: center;
       justify-content: center;
       gap: 2%;
-      margin-bottom: 1%;
+      margin-bottom: 0.5%;
       flex-shrink: 0;
     }
 
@@ -111,6 +111,11 @@
       color: #000;
       display: flex;
       flex-direction: column;
+    }
+
+    .item {
+      font-size: clamp(14px, 4vw, 20px);
+      margin: 2% 0;
     }
 
     .price {
@@ -271,6 +276,10 @@
         color: #000;
         display: block;
       }
+      .item {
+        font-size: 24px;
+        margin-top: 5px;
+      }
       .price {
         font-size: 24px;
         margin-top: 5px;
@@ -337,7 +346,7 @@
 
     <!-- TITLE + LOGO -->
     <div class='title-top-wrapper'>
-      <img src='https://cdn.jsdelivr.net/gh/riep31/assets@main/logos/logodagsap1280x960.png' alt='Logo' onerror="this.style.display='none'">
+      <img src='https://cdn.jsdelivr.net/gh/riep31/assets@main/logos/logodagsap1080x572.png' alt='Logo' onerror="this.style.display='none'">
       <div class='title-top'>PT. DAGSAP ENDURA EATORE</div>
     </div>
 
@@ -351,9 +360,12 @@
 
       <!-- BAGIAN KANAN -->
       <div class='right-section'>
-        <div class='price' id='priceValue'>HNR10.000</div>
-
+        <div class='item' id='itemValue'>[Item]</div>
         <div class='line'></div>
+        
+        <div class='price' id='priceValue'>HNR10.000</div>
+        <div class='line'></div>
+
         <div class='status' id='itemCondition'>[Item Condition]</div>
         <div class='line'></div>
 
@@ -408,6 +420,7 @@
   }
 
   // Ambil semua parameter dari URL (kosong jika tidak ada)
+  const item = getUrlParameter('item') || '';
   const itemCondition = getUrlParameter('condition') || '';
   const expDate = getUrlParameter('exp') || '';
   const subTotal = getUrlParameter('qty') || '';
@@ -419,6 +432,7 @@
   const price = getUrlParameter('price') || '';
 
   // Update semua elemen dengan nilai dari parameter
+  document.getElementById('itemValue').innerText = item;
   document.getElementById('itemCondition').innerText = itemCondition;
   document.getElementById('expDate').innerText = expDate;
   document.getElementById('qtyValue').innerText = subTotal;
